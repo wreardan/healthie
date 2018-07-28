@@ -63,7 +63,14 @@ def login():
 
 @app.route('/records', methods = ['GET', 'POST'])
 def records():
-    return render_template('records.html')
+	record_list = [
+		{
+			filename: "Chest X-Ray",
+			date: "4/17/17",
+			author: "Fairview Health Services",
+		}
+	]
+    return render_template('records.html', record_list)
 
 
 @app.route('/communicate', methods = ['GET', 'POST'])
