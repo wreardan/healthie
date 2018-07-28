@@ -48,3 +48,11 @@ def communicate():
     return render_template('communicate.html')
 
 
+
+if __name__ == "__main__":
+    # https://stackoverflow.com/questions/26080872/secret-key-not-set-in-flask-session
+    #app.secret_key = 'Yarwarl'
+    app.config['SESSION_TYPE'] = 'filesystem'
+
+    app.run(host= '0.0.0.0')
+
