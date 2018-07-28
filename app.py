@@ -19,6 +19,26 @@ def home(path):
     return render_template('home.html')
 
 
+@app.route('/register', methods = ['GET', 'POST'])
+def register():
+	if request.method == 'POST':
+		name = request.form.get('name')
+		email = request.form.get('email')
+		phone = request.form.get('phone')
+		address = request.form.get('address')
+		city = request.form.get('city')
+		state = request.form.get('state')
+		zipcode = request.form.get('zipcode')
+
+		# Hook up Trulioo here
+
+		# Insert patient into database
+
+		return redirect('/records')
+
+	else:
+		return render_template('register.html')
+
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
