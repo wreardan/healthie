@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>healthie.us</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block body %}
 	<form class="LoginForm" method="post">
 		<div class="FieldLabel">Login</div>
 		<div>Username</div>
@@ -11,5 +7,4 @@
 		<div>Password</div>
 		<input type="password" name="password" />
 	</form>
-</body>
-</html>
+{% endblock %}
