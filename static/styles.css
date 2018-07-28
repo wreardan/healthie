@@ -1,0 +1,36 @@
+/* #ECEBE4 Sand
+#CC998D Brown
+#16F4D0 Cyan
+#429EA6 That blue
+#153B50 Navy Blue */
+
+
+:root {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  display: block;
+  --navy-blue: #153B50;
+  --sand: #ECEBE4;
+  --brown:#CC998D;
+  --cyan: #16F4D0;
+  --green-blue: #429EA6;
+  background-color: var(--sand);
+}
+
+
+
+/*
+=============================================================================
+Register file CSS
+=============================================================================
+*/
+#RegisterBox {
+  background-color: var(--navy-blue);
+  border-radius: 1%;
+  text-align: center;
+}
+
+.LoginForm {
+  color: var(--green-blue);
+}
