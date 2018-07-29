@@ -7,12 +7,13 @@ import json
 import hashlib
 from flask import Response, stream_with_context, redirect, flash, render_template, session, abort
 import boto3, botocore
-import MySQLdb as mdb
 import os
 import time
 
-db_password = os.environ['DB_PASSWORD']
-con = mdb.connect("localhost","root",db_password,"healthie")
+if 'DB_PASSWORD' in os.environ:
+    import MySQLdb as mdb
+    db_password = os.environ['DB_PASSWORD']
+    con = mdb.connect("localhost","root",db_password,"healthie")
 
 app = Flask(__name__)
 app.debug = True
