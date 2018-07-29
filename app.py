@@ -53,10 +53,10 @@ def register():
 
         # Insert patient into database
         with con:
-            
+
             cur = con.cursor()
             reg_date = time.strftime('%Y-%m-%d %H:%M:%S')
-            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d, '%s');" % 
+            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d, '%s');" %
                 (firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date))
 
             user_id = cur.lastrowid
@@ -181,12 +181,12 @@ def attachment():
         url = upload_file_to_s3(file, S3_BUCKET, 'private')
 
         with con:
-            
+
             cur = con.cursor()
             upload_date = time.strftime('%Y-%m-%d %H:%M:%S')
             uploaded_by = "San Francisco General"
             user_id = session['user_id']
-            cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d, '%s');" % 
+            cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d, '%s');" %
                 (file.filename, upload_date, uploaded_by, user_id, url))
             attachment_id = cur.lastrowid
             return url
@@ -235,6 +235,3 @@ if __name__ == "__main__":
         kwargs = {"ssl_context": ('../cert.pem', '../privkey.pem')}
     app.config['SESSION_TYPE'] = 'filesystem'
     app.run(host= '0.0.0.0', **kwargs)
-
-
-
