@@ -73,6 +73,8 @@ def login():
             cur = con.cursor()
             cur.execute("SELECT * FROM User WHERE email='%s'" % username)
             rows = cur.fetchall()
+            if len(rows) == 0
+                return render_template('login.html')
             user = rows[0]
             db_password_hash = user['password_hash']
             user_id = user['id']
