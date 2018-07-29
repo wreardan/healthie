@@ -71,6 +71,8 @@ function join() {
   document.getElementById("video").disabled = true;
   var channel_key = null;
 
+  document.getElementById("video").disabled = false;
+
   console.log("Init AgoraRTC client with vendor key: " + key.value);
   client = AgoraRTC.createClient({mode: 'interop'});
   client.init(key.value, function () {
@@ -169,6 +171,8 @@ function join() {
 }
 
 function leave() {
+  document.getElementById("join").disabled = false;
+  document.getElementById("video").disabled = false;
 
   document.getElementById("leave").disabled = true;
   client.leave(function () {
