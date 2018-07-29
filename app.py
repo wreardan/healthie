@@ -8,12 +8,13 @@ import json
 import hashlib
 from flask import Response, stream_with_context, redirect, flash, render_template, session, abort
 import boto3, botocore
+
 import MySQLdb as mdb
 import os
 import time
 
 db_password = os.environ['DB_PASSWORD']
-con = mdb.connect("localhost","root",db_password,"healthie")
+con = mdb.connect("localhost", "root", db_password, "healthie")
 
 app = Flask(__name__)
 app.debug = True
@@ -28,7 +29,6 @@ def home(path):
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-
     if request.method == 'POST':
         firstname = request.form.get('firstname')
         lastname = request.form.get('lastname')
@@ -134,7 +134,7 @@ def communicate():
 
 if __name__ == "__main__":
     # https://stackoverflow.com/questions/26080872/secret-key-not-set-in-flask-session
-    #app.secret_key = 'Yarwarl'
+    # app.secret_key = 'Yarwarl'
     app.config['SESSION_TYPE'] = 'filesystem'
     app.run(host= '0.0.0.0')
 
