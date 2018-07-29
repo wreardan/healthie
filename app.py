@@ -166,5 +166,5 @@ if __name__ == "__main__":
         app.secret_key = os.environ['SESSION_SECRET']
     app.config['SESSION_TYPE'] = 'filesystem'
 
-    app.run(host= '0.0.0.0')
+    app.run(host= '0.0.0.0', ssl_context='adhoc')
 
