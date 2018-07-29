@@ -183,7 +183,7 @@ def attachment():
             cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d, '%s');" % 
                 (file.filename, upload_date, uploaded_by, user_id, url))
             attachment_id = cur.lastrowid
-            return attachment_id
+            return url
 
 
 #from werkzeug.security import secure_filename
