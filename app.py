@@ -92,6 +92,14 @@ def login():
         return render_template('login.html')
 
 
+@app.route('/logout', methods = ['GET'])
+def logout():
+    session['user_id'] = 0
+
+    return redirect('/')
+
+
+
 @app.route('/records', methods = ['GET', 'POST'])
 def records():
     if not 'user_id' in session or not (int(session['user_id']) > 0):
