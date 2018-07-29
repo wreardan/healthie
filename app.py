@@ -182,7 +182,7 @@ def attachment():
             user_id = session['user_id']
             cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d, '%s');" % 
                 (file.filename, upload_date, uploaded_by, user_id, url))
-            attachmend_id = cur.lastrowid
+            attachment_id = cur.lastrowid
             return attachment_id
 
 
