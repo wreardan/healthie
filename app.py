@@ -35,6 +35,11 @@ def register():
         city = request.form.get('city')
         state = request.form.get('state')
         zipcode = request.form.get('zipcode')
+        password = request.form.get('password')
+        password2 = request.form.get('password2')
+
+        assert(password == password2)
+        password_hash = hash_password(password)
 
         # Hook up Trulioo here
 
@@ -42,22 +47,28 @@ def register():
         with con:
             
             cur = con.cursor()
-            cur.execute("INSERT INTO User(firstname, lastname, email, phone, address, city, state, zipcode) VALUES(%s, %s, %s, %d, %s, %s, %s, %d)" % 
-                (firstname, lastname, email, phone, address, city, state, zipcode))
+            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode) VALUES(%s, %s, %s, %s, %d, %s, %s, %s, %d)" % 
+                (firstname, lastname, email, password_hash, phone, address, city, state, zipcode))
 
         return redirect('/records')
 
     else:
         return render_template('register.html')
 
+def hash_password(password):
+    return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        password_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        user_id = db.get('Username:' + username)
+        password_hash = hash_password(password)
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT * FROM User WHERE email=''")
+            rows = cur.fetchall()
+            db_password_hash = rows[0]['password_hash']
 
         if user_id == '' or user_id is None:
             return render_template('login.html')

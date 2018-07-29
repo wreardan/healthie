@@ -9,11 +9,14 @@ CREATE TABLE User (
 	state VARCHAR(50) NOT NULL,
 	zipcode BIGINT NOT NULL,
 	bucket_name VARCHAR(100) NULL,
+	password_hash VARCHAR(100) NOT NULL,
 	fitbit TEXT NULL,
 	reg_date DATE NOT NULL
 );
 
 CREATE TABLE Record (
 	filename VARCHAR(256) NOT NULL,
+	upload_date DATE NOT NULL,
+	uploaded_by VARCHAR(256) NOT NULL,
 	user_id BIGINT NOT NULL
 );
