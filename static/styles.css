@@ -79,7 +79,7 @@ h1 {
     left: 240px;
     display: flex;
     height: 100%;
-    width: 100%;
+    width: calc(100% - 240px);
     position: absolute;
 }
 .content {
