@@ -69,6 +69,7 @@ h1 {
     left: 240px;
     display: flex;
     height: 100%;
+    width: 100%;
     position: absolute;
 }
 .content {
@@ -114,6 +115,11 @@ h1 {
 
 .record-dropper {
   height: 100%;
+}
+
+.ui-container{
+    display: flex;
+    flex-direction: column;
 }
 
 /* #ECEBE4 Sand

@@ -30,8 +30,22 @@ function dropHandler(ev) {
 }
 
 function addFile(file) {
-  var name = file.name;
-  $(".record-table tbody").append("<tr><td>" + name + "</td><td>7/28/18</td><td>San Francisco General</td></tr>");
+
+  var form_data = new FormData();
+  form_data.append("attachment", file);
+  $.ajax({
+      url: '/attachment',
+      method: "post",
+      processData: false,
+      contentType: false,
+      data: form_data,
+      success: function(data) {
+          console.log('Success!');
+          var name = file.name;
+          var url = data;
+          $(".record-table tbody").append("<tr onclick='window.location.href=\""+url+"\"'><td>" + name + "</td><td>7/28/18</td><td>San Francisco General</td></tr>");
+      },
+  });
 }
 
 function dragOverHandler(ev) {
