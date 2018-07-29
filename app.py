@@ -169,6 +169,13 @@ def communicate():
     return render_template('communicate.html')
 
 
+@app.route('/fitbit', methods = ['GET', 'POST'])
+def fitbit():
+    if not 'user_id' in session or not (int(session['user_id']) > 0):
+        return redirect('/login')
+    return render_template('fitbit.html')
+
+
 # http://zabana.me/notes/upload-files-amazon-s3-flask.html
 @app.route("/attachment", methods = ['POST'])
 def attachment():
