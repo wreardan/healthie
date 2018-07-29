@@ -26,4 +26,5 @@ healthie.us
 		Records screen
 
 		Doctor Communication
-			
+
+		Schedule

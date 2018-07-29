@@ -14,9 +14,9 @@ app.debug = True
 @app.route('/', defaults={'path': ''}, methods = ['PUT', 'GET'])
 @app.route('/<path:path>', methods = ['PUT', 'GET'])
 def home(path):
-    if not 'user_id' in session or not (int(session['user_id']) > 0):
-        return redirect('/login')
-    return render_template('home.html')
+    #if not 'user_id' in session or not (int(session['user_id']) > 0):
+        #return redirect('/login')
+    return render_template('index.html')
 
 
 @app.route('/register', methods = ['GET', 'POST'])
@@ -86,6 +86,11 @@ def records():
 @app.route('/schedule', methods = ['GET', 'POST'])
 def schedule():
     return render_template('schedule.html')
+
+
+@app.route('/fitbit', methods = ['GET', 'POST'])
+def fitbit():
+    return render_template('fitbit.html')
 
 
 @app.route('/communicate', methods = ['GET', 'POST'])
