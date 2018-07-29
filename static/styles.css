@@ -116,6 +116,11 @@ h1 {
   height: 100%;
 }
 
+.ui-container{
+    display: flex;
+    flex-direction: column;
+}
+
 /* #ECEBE4 Sand
 #CC998D Brown
 #16F4D0 Cyan
@@ -128,6 +133,7 @@ h1 {
   border: 0;
   padding: 0;
   display: block;
+  font-size: 14px;
   --navy-blue: #153B50;
   --sand: #ECEBE4;
   --brown: #CC998D;
@@ -137,15 +143,8 @@ h1 {
   background-color: var(--sand);
 }
 
-
-input {
-  padding: 6px;
-  display: inline-block;
-  border-top:none;
-  border-right:none;
-  border-left:none;
-  border-bottom:1px solid var(--sand);
-  background-color:transparent;
+h1 {
+  font-size: 28px;
 }
 
 .FieldLabel {
@@ -169,8 +168,22 @@ Register file and Login file CSS
   text-align: center;
 }
 
+
+.LoginForm div input {
+  padding: 6px !important;
+  display: inline-block;
+  border-top:none;
+  border-right:none;
+  border-left:none;
+  border-bottom:1px solid var(--sand);
+  background-color:transparent;
+  margin-bottom: 15px !important;
+  color:var(--sand);
+}
+
 input::placeholder {
   color: var(--sand);
+  font-size: 20px;
 }
 
 .LoginForm {
@@ -241,4 +254,18 @@ input::placeholder {
     font: inherit;
     cursor: pointer;
     outline: inherit;
+    font-size: 20px;
+    opacity:.9;
+  }
+
+  input[name=register]:hover,input[name=login]:hover {
+    opacity:1;
+  }
+
+  textarea {
+    color: var(--sand);
+  }
+  .ui-container{
+      margin: 10px;
+      padding: 10px;
   }
