@@ -66,7 +66,10 @@ h1 {
 .app {
     top: 0;
     bottom: 0;
-    padding-left: 240px;
+    left: 240px;
+    display: flex;
+    height: 100%;
+    position: absolute;
 }
 .content {
     display: -webkit-box;
@@ -108,6 +111,11 @@ h1 {
     margin-left: 40px;
     outline: none;
 }
+
+.record-dropper {
+  height: 100%;
+}
+
 /* #ECEBE4 Sand
 #CC998D Brown
 #16F4D0 Cyan
@@ -120,19 +128,18 @@ h1 {
   border: 0;
   padding: 0;
   display: block;
+  font-size: 14px;
   --navy-blue: #153B50;
   --sand: #ECEBE4;
   --brown: #CC998D;
   --cyan: #16F4D0;
   --green-blue: #429EA6;
+  --gray: #8f9fba;
   background-color: var(--sand);
 }
 
-
-input {
-  padding: 6px;
-  display: inline-block;
-  border:none;
+h1 {
+  font-size: 28px;
 }
 
 .FieldLabel {
@@ -143,7 +150,7 @@ input {
 
 /*
 =============================================================================
-Register file CSS
+Register file and Login file CSS
 =============================================================================
 */
 #AuthBox {
@@ -151,56 +158,105 @@ Register file CSS
   border-radius: 5px;
   text-align: center;
   margin: 10% auto;
-  box-shadow: 5px 10px 30px #888888 ;
+  box-shadow: 5px 10px 30px #888888;
+  color: var(--sand);
+  text-align: center;
+}
+
+
+.LoginForm div input {
+  padding: 6px !important;
+  display: inline-block;
+  border-top:none;
+  border-right:none;
+  border-left:none;
+  border-bottom:1px solid var(--sand);
+  background-color:transparent;
+  margin-bottom: 15px !important;
+  color:var(--sand);
+}
+
+input::placeholder {
+  color: var(--sand);
+  font-size: 20px;
 }
 
 .LoginForm {
   color: var(--navy-blue);
 }
 
-.subsection1 > input {
-  margin-bottom: 10px;
-}
+  input[name=firstname] {
+    width: 32%;
+    margin: 1%;
+  }
 
-/* input[name=name] {
-  width: 50%;
-}
+  input[name=lastname] {
+    width: 32%;
+    margin: 1%;
+  }
 
-input[name=email] {
-  width: 25%;
-}
+  input[name=phone] {
+    width: 28%;
+    margin: 1%;
+  }
 
-input[name=phone] {
-  width: 20%;
-}
+  input[name=email] {
+    width: 98%;
+    margin: 1%;
+  }
 
-input[name=address] {
-  width: 50%;
-}
+  input[name=address]{
+    width:43%;
+    margin: 1%;
+  }
 
-input[name=city] {
-  width: 25%;
-}
+  input[name=city]{
+    width:18%;
+    margin: 1%;
+  }
 
-input[name=zipcode] {
-  width: 10%;
-}
+  input[name=state]{
+    width:18%;
+    margin: 1%;
+  }
 
-input[name=state] {
-  width: 10%;
-} */
+  input[name=zipcode]{
+    width:13%;
+    margin: 1%;
+  }
 
+  input[name=username] {
+    width: 98%;
+    margin: 1%;
+  }
 
+  input[name=password] {
+    width: 98%;
+    margin: 1%;
+  }
 
+  input[name=password2] {
+    width: 98%;
+    margin: 1%;
+  }
 
-input[name=register] {
-  background-color: none;
-  color:var(--navy-blue);
-  border:var(--navy-blue);
-  border-radius: 5px;
-  margin: 3%;
-  padding: 5%;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
-}
+  input[name=register],input[name=login] {
+    background-color: var(--sand);
+    color:var(--navy-blue);
+    border:var(--navy-blue);
+    margin: 3%;
+    padding: 2%;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    font-size: 20px;
+    opacity:.9;
+  }
+
+  input[name=register]:hover,input[name=login]:hover {
+    opacity:1;
+  }
+
+  textarea {
+    color: var(--sand);
+  }

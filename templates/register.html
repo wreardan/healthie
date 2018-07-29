@@ -3,36 +3,39 @@
 <div class="w3-container w3-third"></div>
 	<div id="AuthBox" class="w3-container w3-third">
 		<h1>Register</h1>
-		<form class="LoginForm w3-container w3-row" method="post">
-			<!-- <div class="subsection1"> -->
+		<form class="LoginForm" method="post">
+			<div class="w3-row-padding">
 				<!-- <div class="FieldLabel">Name</div> -->
-				<input class="w3-" type="text" name="name" placeholder="Name" />
-				<!-- <div class="FieldLabel">Email</div> -->
-				<input type="email" placeholder="email@domain.com" name="email" />
+					<input class="w3-col" type="text" name="firstname" placeholder="First Name" />
+					<input class="w3-col" type="text" name="lastname" placeholder="Last Name" />
 				<!-- <div class="FieldLabel">Phone</div> -->
-				<input type="tel" placeholder="10-Digit Phone #" name="phone" />
-			<!-- </div> -->
+					<input class="w3-col" type="tel" placeholder="Phone" name="phone" />
+			</div>
+			<div class="w3-row-padding">
+			<!-- <div class="FieldLabel">Email</div> -->
+				<input class="w3-col" type="email" placeholder="email@domain.com" name="email" />
+			</div>
 			<!-- <div class="subsection1"> -->
+			<div class="w3-row-padding">
 				<!-- <div class="FieldLabel">Address</div> -->
-				<input type="text" placeholder="Address" name="address" />
+				<input class="w3-col" type="text" placeholder="Address" name="address" />
 				<!-- <div class="FieldLabel">City</div> -->
-				<input type="text" placeholder="City name" name="city" />
+				<input class="w3-col" type="text" placeholder="City" name="city" />
 				<!-- <div class="FieldLabel">State</div> -->
-				<input type="text" placeholder="State" name="state" />
+				<input class="w3-col" type="text" placeholder="State" name="state" />
 				<!-- <div class="FieldLabel">Zipcode</div> -->
-				<input type="text" placeholder="Zip code" name="zipcode" />
-			<!-- </div> -->
-			<!-- <div class="subsection1"> -->
+				<input class="w3-col" type="text" placeholder="ZIP" name="zipcode" />
+			</div>
+			<div class="w3-row-padding">
 				<!-- <div class="FieldLabel">Username</div> -->
-				<input type="text" placeholder="Type your username" name="username" />
+				<input class="w3-col" type="text" placeholder="Type your username" name="username" />
 				<!-- <div class="FieldLabel">Password</div> -->
-				<input type="password" placeholder="Enter your password" name="password" />
+				<input class="w3-col" type="password" placeholder="Enter your password" name="password" />
 				<!-- <div class="FieldLabel">Verify Password</div> -->
-				<input type="password" placeholder="Re-enter your password" name="password2" />
-			<!-- </div> -->
+				<input class="w3-col" type="password" placeholder="Re-enter your password" name="password2" />
+			</div>
 			<br/>
-
-			<input type="submit" name="register" value="Register"/>
+			<input class="w3-round-small" type="submit" name="register" value="Register"/>
 		</form>
 	</div>
 <div class="w3-container w3-third"></div>
