@@ -9,6 +9,7 @@ from flask import Response, stream_with_context, redirect, flash, render_templat
 import boto3, botocore
 import MySQLdb as mdb
 import os
+import time
 
 db_password = os.environ['DB_PASSWORD']
 con = mdb.connect("localhost","root",db_password,"healthie")
@@ -47,7 +48,8 @@ def register():
         with con:
             
             cur = con.cursor()
-            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d);" % 
+            reg_date = time.strftime('%Y-%m-%d %H:%M:%S')
+            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d, '%s');" % 
                 (firstname, lastname, email, password_hash, phone, address, city, state, zipcode))
 
         return redirect('/records')
