@@ -1,36 +1,214 @@
+html, body {
+    font-family: "Lato", "Open Sans", "sans-serif";
+    color: rgb(27, 39, 51);
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    padding-top: 20px;
+    margin: 0;
+}
+
+.record-table {
+    width: 100%;
+}
+.record-table td, .record-table th {
+    border-bottom: 1px solid #e6e8eb;
+}
+.record-table th, .record-table td {
+    padding: 16px 16px;
+    text-align: left;
+}
+
+.nav-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 240px;
+    min-width: 240px;
+    height: 100%;
+    background: #F7F9FA;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: absolute;
+}
+
+.nav-contents {
+    overflow-y: auto;
+    position: absolute;
+    top: 96px;
+    bottom: 0;
+    width: 200px;
+}
+
+.nav-contents li {
+    list-style-type: none;
+    padding: 10px 5px;
+    font-size: 20px;
+}
+
+.nav-contents li a, .nav-contents li a:link, .nav-contents li a:visited, .nav-contents li a:hover, .nav-contents li a:active {
+    color: rgb(27, 39, 51);
+    text-decoration: none;
+}
+.nav-contents li a:hover {
+    opacity: 0.5;
+}
+
+.app {
+    top: 0;
+    bottom: 0;
+    left: 240px;
+    display: flex;
+    height: 100%;
+    position: absolute;
+}
+.content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.page-header {
+    position: fixed;
+    z-index: 5;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    white-space: nowrap;
+    left: 240px;
+    width: calc(100% - (200px + 2 * 40px));
+    min-width: 744px;
+    background: #fff;
+    padding: 40px 0 0 40px;
+    height: 56px;
+}
+
+.app-content {
+    position: relative;
+    z-index: 1;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    min-width: 420px;
+    margin-left: 40px;
+    outline: none;
+}
+
+.record-dropper {
+  height: 100%;
+}
+
 /* #ECEBE4 Sand
 #CC998D Brown
 #16F4D0 Cyan
-#429EA6 That blue
+#429EA6 Green blue
 #153B50 Navy Blue */
 
 
 :root {
-  margin: 0;
+  /* margin: 0; */
   border: 0;
   padding: 0;
   display: block;
   --navy-blue: #153B50;
   --sand: #ECEBE4;
-  --brown:#CC998D;
+  --brown: #CC998D;
   --cyan: #16F4D0;
   --green-blue: #429EA6;
   background-color: var(--sand);
 }
 
 
+input {
+  padding: 6px;
+  display: inline-block;
+  border:none;
+}
+
+.FieldLabel {
+  font-size: 16pt;
+  padding: 4px;
+  display: inline-block;
+}
 
 /*
 =============================================================================
 Register file CSS
 =============================================================================
 */
-#RegisterBox {
-  background-color: var(--navy-blue);
-  border-radius: 1%;
+#AuthBox {
+  background-color: var(--green-blue);
+  border-radius: 5px;
   text-align: center;
+  margin: 10% auto;
+  box-shadow: 5px 10px 30px #888888 ;
 }
 
 .LoginForm {
-  color: var(--green-blue);
+  color: var(--navy-blue);
+}
+
+.subsection1 > input {
+  margin-bottom: 10px;
+}
+
+/* input[name=name] {
+  width: 50%;
+}
+
+input[name=email] {
+  width: 25%;
+}
+
+input[name=phone] {
+  width: 20%;
+}
+
+input[name=address] {
+  width: 50%;
+}
+
+input[name=city] {
+  width: 25%;
+}
+
+input[name=zipcode] {
+  width: 10%;
+}
+
+input[name=state] {
+  width: 10%;
+} */
+
+
+
+
+input[name=register] {
+  background-color: none;
+  color:var(--navy-blue);
+  border:var(--navy-blue);
+  border-radius: 5px;
+  margin: 3%;
+  padding: 5%;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }

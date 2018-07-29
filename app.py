@@ -7,7 +7,7 @@ from datetime import datetime
 import json
 import hashlib
 from flask import Response, stream_with_context, redirect, flash, render_template, session, abort
-import boto3, botocore
+#import boto3, botocore
 
 app = Flask(__name__)
 app.debug = True
@@ -15,29 +15,31 @@ app.debug = True
 @app.route('/', defaults={'path': ''}, methods = ['PUT', 'GET'])
 @app.route('/<path:path>', methods = ['PUT', 'GET'])
 def home(path):
-    if not 'user_id' in session or not (int(session['user_id']) > 0):
-        return redirect('/login')
-    return render_template('home.html')
+    #if not 'user_id' in session or not (int(session['user_id']) > 0):
+        #return redirect('/login')
+    return render_template('index.html')
 
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-	if request.method == 'POST':
-		name = request.form.get('name')
-		email = request.form.get('email')
-		phone = request.form.get('phone')
-		address = request.form.get('address')
-		city = request.form.get('city')
-		state = request.form.get('state')
-		zipcode = request.form.get('zipcode')
-		validate(name, email, phone, address, city, state, zipcode)
-		# Hook up Trulioo her
-		# Insert patient into database
 
-		return redirect('/records')
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        address = request.form.get('address')
+        city = request.form.get('city')
+        state = request.form.get('state')
+        zipcode = request.form.get('zipcode')
 
-	else:
-		return render_template('register.html')
+        # Hook up Trulioo here
+
+        # Insert patient into database
+
+        return redirect('/records')
+
+    else:
+        return render_template('register.html')
 
 
 @app.route('/login', methods = ['GET', 'POST'])
@@ -63,7 +65,34 @@ def login():
 
 @app.route('/records', methods = ['GET', 'POST'])
 def records():
-    return render_template('records.html')
+    record_list = [
+        {
+            "filename": "Chest X-Ray",
+            "date": "4/17/17",
+            "author": "Fairview Health Services",
+        },
+        {
+            "filename": "Chest X-Ray",
+            "date": "4/18/17",
+            "author": "Fairview Health Services",
+        },
+        {
+            "filename": "Abdominal Ultrasound",
+            "date": "4/19/17",
+            "author": "Fairview Health Services",
+        },
+    ]
+    return render_template('records.html', record_list=record_list)
+
+
+@app.route('/schedule', methods = ['GET', 'POST'])
+def schedule():
+    return render_template('schedule.html')
+
+
+@app.route('/fitbit', methods = ['GET', 'POST'])
+def fitbit():
+    return render_template('fitbit.html')
 
 
 @app.route('/communicate', methods = ['GET', 'POST'])
