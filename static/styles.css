@@ -133,11 +133,18 @@ h1 {
 }
 
 .call-buttons {
-  text-align: center;
+  display: inline-block;
+  position: absolute;
+  left: 400px;
+  top: 600px;
 }
 
 .call-button {
   color: green;
+}
+
+.call-button i {
+  font-size: 40px;
 }
 
 .call-end-button {
