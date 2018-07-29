@@ -30,11 +30,11 @@ def register():
         firstname = request.form.get('firstname')
         lastname = request.form.get('lastname')
         email = request.form.get('email')
-        phone = request.form.get('phone')
+        phone = int(request.form.get('phone'))
         address = request.form.get('address')
         city = request.form.get('city')
         state = request.form.get('state')
-        zipcode = request.form.get('zipcode')
+        zipcode = int(request.form.get('zipcode'))
         password = request.form.get('password')
         password2 = request.form.get('password2')
 
