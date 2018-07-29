@@ -36,13 +36,11 @@ function addFile(file) {
   var form_data = new FormData();
   form_data.append("attachment", file);
   $.ajax({
-      type: 'POST',
       url: '/attachment',
-      data: form_data,
-      contentType: file.type,
-      cache: false,
+      method: "post",
       processData: false,
-      async: false,
+      contentType: false,
+      data: form_data,
       success: function(data) {
           console.log('Success!');
       },

@@ -167,7 +167,6 @@ def communicate():
 @app.route("/attachment", methods = ['POST'])
 def attachment():
     if request.method == 'POST':
-        print(request.files["attachment"].filename)
         if "attachment" not in request.files:
             return "No attachment in request: " + json.dumps(request.files)
 
