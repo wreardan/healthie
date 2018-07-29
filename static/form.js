@@ -71,3 +71,11 @@ function validatePassword(element) {
   }
   else element.style["border-bottom"] ="2px solid green";
 }
+
+function authUser(element) {
+  let field = $(element).val();
+  if (field == "" || /[^a-zA-Z0-9._-]/.test(field)) {
+    element.style["border-bottom"] ="2px solid red";
+  }
+  else element.style["border-bottom"] ="2px solid green";
+}
