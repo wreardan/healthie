@@ -15,8 +15,10 @@
 <input id="key" type="hidden" value="55a423d162294812a5ff1ad0c9714af3" size="36"></input>
 <input id="channel" type="hidden" value="1000" size="4"></input>
 <input id="video" type="hidden" checked></input>
-<button id="join" class="btn btn-primary" onclick="join()" >Call!</button>
-<button id="leave" class="btn btn-primary" onclick="leave()">End Call</button>
+<div class="call-buttons">
+	<button id="join" class="btn btn-primary call-button" onclick="join()" ><i class="material-icons">call</i></button>
+	<button id="leave" class="btn btn-primary call-button call-end-button" onclick="leave()"><i class="material-icons">call_end</i></button>
+</div>
 <button id="publish" class="btn btn-primary" onclick="publish()" style="display: none;">Publish</button>
 <button id="unpublish" class="btn btn-primary" onclick="unpublish()" style="display: none;">Unpublish</button>
 </div>
@@ -70,6 +72,9 @@ function join() {
   document.getElementById("join").disabled = true;
   document.getElementById("video").disabled = true;
   var channel_key = null;
+
+  document.getElementById("leave").disabled = false;
+  document.getElementById("video").disabled = false;
 
   console.log("Init AgoraRTC client with vendor key: " + key.value);
   client = AgoraRTC.createClient({mode: 'interop'});
@@ -169,6 +174,8 @@ function join() {
 }
 
 function leave() {
+  document.getElementById("join").disabled = false;
+  document.getElementById("video").disabled = false;
 
   document.getElementById("leave").disabled = true;
   client.leave(function () {
@@ -176,6 +183,9 @@ function leave() {
   }, function (err) {
     console.log("Leave channel failed");
   });
+
+  localStream.close();
+  localStream.stop();
 }
 
 function publish() {
