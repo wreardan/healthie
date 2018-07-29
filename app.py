@@ -50,7 +50,7 @@ def register():
             cur = con.cursor()
             reg_date = time.strftime('%Y-%m-%d %H:%M:%S')
             cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d, '%s');" % 
-                (firstname, lastname, email, password_hash, phone, address, city, state, zipcode))
+                (firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date))
 
         return redirect('/records')
 
