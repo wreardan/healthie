@@ -187,7 +187,7 @@ def attachment():
 
 
 @app.route("/attachment/<attachment_id>", methods = ['GET'])
-def attachment(attachment_id):
+def attachment_by_id(attachment_id):
     pass
 
 
