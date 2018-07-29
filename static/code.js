@@ -32,6 +32,20 @@ function dropHandler(ev) {
 function addFile(file) {
   var name = file.name;
   $(".record-table tbody").append("<tr><td>" + name + "</td><td>7/28/18</td><td>San Francisco General</td></tr>");
+
+  var form_data = new FormData(file);
+  $.ajax({
+      type: 'POST',
+      url: '/attachment',
+      data: form_data,
+      contentType: file.type,
+      cache: false,
+      processData: false,
+      async: false,
+      success: function(data) {
+          console.log('Success!');
+      },
+  });
 }
 
 function dragOverHandler(ev) {
