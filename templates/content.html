@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+	<div class="nav-container">
+		<div class="nav-contents">
+			<ul>
+				<li><a href="/records">Records</a></li>
+				<li><a href="/schedule">Schedule</a></li>
+				<li><a href="/communicate">Communicate</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="app">
+		<div class="app-content">
+			{% block content %} {% endblock %}
+		</div>
+	</div>
+{% endblock %}

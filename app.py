@@ -6,7 +6,7 @@ from datetime import datetime
 import json
 import hashlib
 from flask import Response, stream_with_context, redirect, flash, render_template, session, abort
-import boto3, botocore
+#import boto3, botocore
 
 app = Flask(__name__)
 app.debug = True
@@ -21,23 +21,23 @@ def home(path):
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-	if request.method == 'POST':
-		name = request.form.get('name')
-		email = request.form.get('email')
-		phone = request.form.get('phone')
-		address = request.form.get('address')
-		city = request.form.get('city')
-		state = request.form.get('state')
-		zipcode = request.form.get('zipcode')
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        address = request.form.get('address')
+        city = request.form.get('city')
+        state = request.form.get('state')
+        zipcode = request.form.get('zipcode')
 
-		# Hook up Trulioo here
+        # Hook up Trulioo here
 
-		# Insert patient into database
+        # Insert patient into database
 
-		return redirect('/records')
+        return redirect('/records')
 
-	else:
-		return render_template('register.html')
+    else:
+        return render_template('register.html')
 
 
 @app.route('/login', methods = ['GET', 'POST'])
@@ -63,7 +63,29 @@ def login():
 
 @app.route('/records', methods = ['GET', 'POST'])
 def records():
-    return render_template('records.html')
+    record_list = [
+        {
+            "filename": "Chest X-Ray",
+            "date": "4/17/17",
+            "author": "Fairview Health Services",
+        },
+        {
+            "filename": "Chest X-Ray",
+            "date": "4/18/17",
+            "author": "Fairview Health Services",
+        },
+        {
+            "filename": "Abdominal Ultrasound",
+            "date": "4/19/17",
+            "author": "Fairview Health Services",
+        },
+    ]
+    return render_template('records.html', record_list=record_list)
+
+
+@app.route('/schedule', methods = ['GET', 'POST'])
+def schedule():
+    return render_template('schedule.html')
 
 
 @app.route('/communicate', methods = ['GET', 'POST'])
