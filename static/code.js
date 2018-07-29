@@ -33,7 +33,8 @@ function addFile(file) {
   var name = file.name;
   $(".record-table tbody").append("<tr><td>" + name + "</td><td>7/28/18</td><td>San Francisco General</td></tr>");
 
-  var form_data = new FormData(file);
+  var form_data = new FormData();
+  formData.append("attachment", files[0]);
   $.ajax({
       type: 'POST',
       url: '/attachment',
