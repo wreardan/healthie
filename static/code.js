@@ -12,17 +12,26 @@ function dropHandler(ev) {
       if (ev.dataTransfer.items[i].kind === 'file') {
         var file = ev.dataTransfer.items[i].getAsFile();
         console.log('... file[' + i + '].name = ' + file.name);
+        addFile(file);
+
       }
     }
   } else {
     // Use DataTransfer interface to access the file(s)
     for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+      var file = ev.dataTransfer.files[i];
       console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+      addFile(file);
     }
   } 
   
   // Pass event to removeDragData for cleanup
   removeDragData(ev)
+}
+
+function addFile(file) {
+  var name = file.name;
+  $(".record-table tbody").append("<tr><td>" + name + "</td><td>7/28/18</td><td>San Francisco General</td></tr>");
 }
 
 function dragOverHandler(ev) {
@@ -43,3 +52,13 @@ function removeDragData(ev) {
     ev.dataTransfer.clearData();
   }
 }
+
+// function setupDrop() {
+//   $(window).load(function() {
+//     $content = $(".app-content");
+//     var height = $content.height();
+//     if(height < window.innerHeight) {
+//       $content.css("min-height", height);
+//     }
+//   });
+// }

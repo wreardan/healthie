@@ -88,6 +88,11 @@ def schedule():
     return render_template('schedule.html')
 
 
+@app.route('/fitbit', methods = ['GET', 'POST'])
+def fitbit():
+    return render_template('fitbit.html')
+
+
 @app.route('/communicate', methods = ['GET', 'POST'])
 def communicate():
     return render_template('communicate.html')
