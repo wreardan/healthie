@@ -5,34 +5,23 @@
 		<h1>Register</h1>
 		<form class="LoginForm" method="post">
 			<div class="w3-row-padding">
-				<!-- <div class="FieldLabel">Name</div> -->
-					<input class="w3-col" type="text" name="firstname" placeholder="First Name" />
-					<input class="w3-col" type="text" name="lastname" placeholder="Last Name" />
-				<!-- <div class="FieldLabel">Phone</div> -->
-					<input class="w3-col" type="tel" placeholder="Phone" name="phone" />
+				<input class="w3-col" type="text" name="firstname" placeholder="First Name" onkeyup="validateField(this)"  onkeydown="validateField(this)"/>
+				<input class="w3-col" type="text" name="lastname" placeholder="Last Name" onkeyup="validateField(this)"  onkeydown="validateField(this)"/>
+				<input class="w3-col" type="tel" placeholder="Phone" name="phone"  onkeyup="validatePhone(this)"  onkeydown="validatePhone(this)" />
 			</div>
 			<div class="w3-row-padding">
-			<!-- <div class="FieldLabel">Email</div> -->
-				<input class="w3-col" type="email" placeholder="email@domain.com" name="email" />
-			</div>
-			<!-- <div class="subsection1"> -->
-			<div class="w3-row-padding">
-				<!-- <div class="FieldLabel">Address</div> -->
-				<input class="w3-col" type="text" placeholder="Address" name="address" />
-				<!-- <div class="FieldLabel">City</div> -->
-				<input class="w3-col" type="text" placeholder="City" name="city" />
-				<!-- <div class="FieldLabel">State</div> -->
-				<input class="w3-col" type="text" placeholder="State" name="state" />
-				<!-- <div class="FieldLabel">Zipcode</div> -->
-				<input class="w3-col" type="text" placeholder="ZIP" name="zipcode" />
+				<input class="w3-col" type="email" placeholder="email@domain.com" name="email" onkeyup="validateEmail(this)" onkeydown="validateEmail(this)" />
 			</div>
 			<div class="w3-row-padding">
-				<!-- <div class="FieldLabel">Username</div> -->
-				<input class="w3-col" type="text" placeholder="Type your username" name="username" />
-				<!-- <div class="FieldLabel">Password</div> -->
-				<input class="w3-col" type="password" placeholder="Enter your password" name="password" />
-				<!-- <div class="FieldLabel">Verify Password</div> -->
-				<input class="w3-col" type="password" placeholder="Re-enter your password" name="password2" />
+				<input class="w3-col" type="text" placeholder="Address" name="address" onkeyup="validateLocation(this)" onkeydown="validateLocation(this)" />
+				<input class="w3-col" type="text" placeholder="City" name="city" onkeyup="validateCity(this)" onkeydown="validateCity(this)" />
+				<input class="w3-col" type="text" placeholder="State" name="state" onkeyup="validateState(this)" onkeydown="validateState(this)" />
+				<input class="w3-col" type="text" placeholder="ZIP" name="zipcode"  onkeyup="validateZip(this)" onkeydown="validateZip(this)" />
+			</div>
+			<div class="w3-row-padding">
+				<input class="w3-col" type="text" placeholder="Type your username" name="username"  onkeyup="validateUsername(this)" onkeydown="validateUsername(this)"/>
+				<input class="w3-col" type="password" placeholder="Enter your password" name="password" onkeyup="validatePassword(this)" onkeydown="validatePassword(this)"/>
+				<input class="w3-col" type="password" placeholder="Re-enter your password" name="password2" onkeyup="validatePassword(this)" onkeydown="validatePassword(this)"/>
 			</div>
 			<br/>
 			<input class="w3-round-small" type="submit" name="register" value="Register"/>

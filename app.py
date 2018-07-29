@@ -1,12 +1,14 @@
 from flask import Flask
 from flask import request
 import flask
+import requests
 import time
 from datetime import datetime
 import json
 import hashlib
 from flask import Response, stream_with_context, redirect, flash, render_template, session, abort
 import boto3, botocore
+
 import os
 import time
 
@@ -16,7 +18,7 @@ if 'DB_PASSWORD' in os.environ:
     con = mdb.connect("localhost","root",db_password,"healthie")
 
 
-    S3_BUCKET = 'healthie.us'  # app.config["S3_BUCKET"]
+    S3_BUCKET = 'healthie.us2'  # app.config["S3_BUCKET"]
     s3 = boto3.client('s3', aws_access_key_id=os.environ["AWS_KEY"], aws_secret_access_key=os.environ["AWS_SECRET"])
 
 app = Flask(__name__)
@@ -51,10 +53,10 @@ def register():
 
         # Insert patient into database
         with con:
-            
+
             cur = con.cursor()
             reg_date = time.strftime('%Y-%m-%d %H:%M:%S')
-            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d, '%s');" % 
+            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d, '%s');" %
                 (firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date))
 
             user_id = cur.lastrowid
@@ -109,7 +111,7 @@ def logout():
 def records():
     if not 'user_id' in session or not (int(session['user_id']) > 0):
         return redirect('/login')
-    record_list = [
+    """record_list = [
         {
             "filename": "Chest X-Ray",
             "date": "4/17/17",
@@ -125,14 +127,18 @@ def records():
             "date": "4/19/17",
             "author": "Fairview Health Services",
         },
-    ]
+    ]"""
+    with con:
+        cur = con.cursor(mdb.cursors.DictCursor)
+        cur.execute("SELECT * FROM Record WHERE user_id='%d'" % session["user_id"])
+        record_list = cur.fetchall()
     return render_template('records.html', record_list=record_list)
 
 
 @app.route('/schedule', methods = ['GET', 'POST'])
 def schedule():
-    if not 'user_id' in session or not (int(session['user_id']) > 0):
-        return redirect('/login')
+    # if not 'user_id' in session or not (int(session['user_id']) > 0):
+    #     return redirect('/login')
     return render_template('schedule.html')
 
 
@@ -158,8 +164,8 @@ def googleredirect():
 
 @app.route('/communicate', methods = ['GET', 'POST'])
 def communicate():
-    # if not 'user_id' in session or not (int(session['user_id']) > 0):
-    #     return redirect('/login')
+    if not 'user_id' in session or not (int(session['user_id']) > 0):
+        return redirect('/login')
     return render_template('communicate.html')
 
 
@@ -168,19 +174,22 @@ def communicate():
 def attachment():
     if request.method == 'POST':
         if "attachment" not in request.files:
-            return "No attachment in request"
+            return "No attachment in request: " + json.dumps(request.files)
 
         file = request.files["attachment"]
         file.filename = secure_filename(file.filename)
         url = upload_file_to_s3(file, S3_BUCKET, 'private')
 
-        upload_date = time.strftime('%Y-%m-%d %H:%M:%S')
-        uploaded_by = "San Francisco General"
-        user_id = session['user_id']
-        cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d);" % 
-            (file.filename, upload_date, uploaded_by, user_id, url))
-        attachmend_id = cur.lastrowid
-        return attachment_id
+        with con:
+
+            cur = con.cursor()
+            upload_date = time.strftime('%Y-%m-%d %H:%M:%S')
+            uploaded_by = "San Francisco General"
+            user_id = session['user_id']
+            cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d, '%s');" %
+                (file.filename, upload_date, uploaded_by, user_id, url))
+            attachment_id = cur.lastrowid
+            return url
 
 
 #from werkzeug.security import secure_filename
@@ -225,6 +234,4 @@ if __name__ == "__main__":
         app.secret_key = os.environ['SESSION_SECRET']
         kwargs = {"ssl_context": ('../cert.pem', '../privkey.pem')}
     app.config['SESSION_TYPE'] = 'filesystem'
-
     app.run(host= '0.0.0.0', **kwargs)
-
