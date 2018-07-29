@@ -165,7 +165,7 @@ if __name__ == "__main__":
     kwargs = {}
     if 'SESSION_SECRET' in os.environ:
         app.secret_key = os.environ['SESSION_SECRET']
-        kwargs = {"ssl_context": ('/etc/letsencrypt/live/healthie.wesleyreardan.com/fullchain.pem', '/etc/letsencrypt/live/healthie.wesleyreardan.com/privkey.pem')}
+        kwargs = {"ssl_context": ('/etc/letsencrypt/live/healthie.wesleyreardan.com/cert.pem', '/etc/letsencrypt/live/healthie.wesleyreardan.com/privkey.pem')}
     app.config['SESSION_TYPE'] = 'filesystem'
 
     app.run(host= '0.0.0.0', **kwargs)
