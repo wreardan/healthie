@@ -12,6 +12,30 @@ import boto3, botocore
 import os
 import time
 
+
+#####TRULIOO
+
+def validate(firstname, lastname, email, phone, address, city, state, zipcode):
+    url = "https://Conrad_API:Password123@@api.globalgateway.io/verifications/v1/verify"
+    json = {"AcceptTruliooTermsAndConditions": True, "Demo": True, "ConfigurationName": "Identity Verification",
+            "ConsentForDataSources": [], "CountryCode": "US",
+            "DataFields": {"PersonInfo": {"FirstGivenName": firstname, "FirstSurName": lastname},
+                           "Location": {"City": city, "PostalCode": zipcode}, "Communication": {"MobileNumber": phone}}}
+    response = requests.post(url, json=json)
+
+    match_field = """{"FieldName":"FirstInitial","Status":"match"},{"FieldName":"City","Status":"""
+    try:
+        match_index = str(response.content).index(match_field) + len(match_field) + 1
+    except:
+        print("failed")
+        return False
+
+    valid = str(response.content)[match_index : match_index+5]
+    if valid == "match":
+        return True
+    return False
+
+####
 if 'DB_PASSWORD' in os.environ:
     import MySQLdb as mdb
     db_password = os.environ['DB_PASSWORD']
@@ -38,11 +62,11 @@ def register():
         firstname = request.form.get('firstname')
         lastname = request.form.get('lastname')
         email = request.form.get('email')
-        phone = int(request.form.get('phone'))
+        phone = (request.form.get('phone'))
         address = request.form.get('address')
         city = request.form.get('city')
         state = request.form.get('state')
-        zipcode = int(request.form.get('zipcode'))
+        zipcode = (request.form.get('zipcode'))
         password = request.form.get('password')
         password2 = request.form.get('password2')
 
@@ -50,20 +74,18 @@ def register():
         password_hash = hash_password(password)
 
         # Hook up Trulioo here
+        if validate(firstname, lastname, email, phone, address, city, state, zipcode):
+            with con:
+                cur = con.cursor()
+                reg_date = time.strftime('%Y-%m-%d %H:%M:%S')
+                cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d, '%s');" %
+                    (firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date))
 
-        # Insert patient into database
-        with con:
-
-            cur = con.cursor()
-            reg_date = time.strftime('%Y-%m-%d %H:%M:%S')
-            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d, '%s');" %
-                (firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date))
-
-            user_id = cur.lastrowid
-            session['user_id'] = user_id
-
-        return redirect('/records')
-
+                user_id = cur.lastrowid
+                session['user_id'] = user_id
+            return redirect('/records')
+        else:
+            return render_template('register.html', error = "Invalid Information")
     else:
         return render_template('register.html')
 
@@ -102,7 +124,6 @@ def login():
 @app.route('/logout', methods = ['GET'])
 def logout():
     session['user_id'] = 0
-
     return redirect('/')
 
 
@@ -128,6 +149,7 @@ def records():
             "author": "Fairview Health Services",
         },
     ]"""
+
     with con:
         cur = con.cursor(mdb.cursors.DictCursor)
         cur.execute("SELECT * FROM Record WHERE user_id='%d'" % session["user_id"])
@@ -164,8 +186,8 @@ def communicate():
 
 @app.route('/fitbit', methods = ['GET', 'POST'])
 def fitbit():
-    if not 'user_id' in session or not (int(session['user_id']) > 0):
-        return redirect('/login')
+    # if not 'user_id' in session or not (int(session['user_id']) > 0):
+    #     return redirect('/login')
     return render_template('fitbit.html')
 
 
