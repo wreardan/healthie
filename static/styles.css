@@ -44,7 +44,7 @@ h1 {
 .nav-contents {
     overflow-y: auto;
     position: absolute;
-    top: 96px;
+    top: 135px;
     bottom: 0;
     width: 200px;
 }
@@ -63,13 +63,23 @@ h1 {
     opacity: 0.5;
 }
 
+.nav-logo {
+  position: absolute;
+  left: 93px;
+  top: 40px;
+}
+.nav-logo img {
+  width: 50px;
+  height: 76px;
+}
+
 .app {
     top: 0;
     bottom: 0;
     left: 240px;
     display: flex;
     height: 100%;
-    width: 100%;
+    width: calc(100% - 240px);
     position: absolute;
 }
 .content {
@@ -120,6 +130,28 @@ h1 {
 .ui-container{
     display: flex;
     flex-direction: column;
+}
+
+.call-buttons {
+  display: inline-block;
+  position: absolute;
+  left: 400px;
+  top: 600px;
+  z-index: 1000;
+}
+
+.call-button {
+  color: green;
+  border:none;
+  background-color: inherit;
+}
+
+.call-button i {
+  font-size: 80px;
+}
+
+.call-end-button {
+  color: red;
 }
 
 /* #ECEBE4 Sand
