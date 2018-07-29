@@ -142,18 +142,6 @@ h1 {
   font-size: 28px;
 }
 
-input {
-  padding: 6px !important;
-  display: inline-block;
-  border-top:none;
-  border-right:none;
-  border-left:none;
-  border-bottom:1px solid var(--sand);
-  background-color:transparent;
-  margin-bottom: 15px !important;
-  color:var(--sand);
-}
-
 .FieldLabel {
   font-size: 16pt;
   padding: 4px;
@@ -173,6 +161,19 @@ Register file and Login file CSS
   box-shadow: 5px 10px 30px #888888;
   color: var(--sand);
   text-align: center;
+}
+
+
+.LoginForm div input {
+  padding: 6px !important;
+  display: inline-block;
+  border-top:none;
+  border-right:none;
+  border-left:none;
+  border-bottom:1px solid var(--sand);
+  background-color:transparent;
+  margin-bottom: 15px !important;
+  color:var(--sand);
 }
 
 input::placeholder {
