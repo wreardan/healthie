@@ -18,5 +18,6 @@ CREATE TABLE Record (
 	filename VARCHAR(256) NOT NULL,
 	upload_date DATE NOT NULL,
 	uploaded_by VARCHAR(256) NOT NULL,
-	user_id BIGINT NOT NULL
+	user_id BIGINT NOT NULL,
+	url VARCHAR(256)
 );
