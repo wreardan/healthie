@@ -142,13 +142,6 @@ def schedule():
     return render_template('schedule.html')
 
 
-@app.route('/fitbit', methods = ['GET', 'POST'])
-def fitbit():
-    if not 'user_id' in session or not (int(session['user_id']) > 0):
-        return redirect('/login')
-    return render_template('fitbit.html')
-
-
 
 @app.route('/fitbitredirect', methods = ['GET', 'POST'])
 def fitbitredirect():
