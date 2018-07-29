@@ -137,6 +137,7 @@ h1 {
   position: absolute;
   left: 400px;
   top: 600px;
+  z-index: 1000;
 }
 
 .call-button {
@@ -146,7 +147,7 @@ h1 {
 }
 
 .call-button i {
-  font-size: 40px;
+  font-size: 80px;
 }
 
 .call-end-button {
