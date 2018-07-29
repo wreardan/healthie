@@ -86,7 +86,7 @@ def login():
 
         session['user_id'] = user_id
 
-        return redirect('/')
+        return redirect('/records')
 
     else:
         return render_template('login.html')
