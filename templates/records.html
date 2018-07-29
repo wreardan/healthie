@@ -1,9 +1,8 @@
-{% extends "layout.html" %}
-{% block body %}
-	<div class="navigation"></div>
-	<div class="container">
+{% extends "content.html" %}
+{% block content %}
+	<div id="record-dropper" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
 		<h1>Records</h1>
-		<table>
+		<table class="record-table">
 			<thead>
 				<tr>
 					<th>Name</th>
