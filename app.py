@@ -162,9 +162,11 @@ def communicate():
 
 if __name__ == "__main__":
     # https://stackoverflow.com/questions/26080872/secret-key-not-set-in-flask-session
+    kwargs = {}
     if 'SESSION_SECRET' in os.environ:
         app.secret_key = os.environ['SESSION_SECRET']
+        kwargs = {"ssl_context": 'adhoc'}
     app.config['SESSION_TYPE'] = 'filesystem'
 
-    app.run(host= '0.0.0.0', ssl_context='adhoc')
+    app.run(host= '0.0.0.0', **kwargs)
 
