@@ -170,7 +170,7 @@ def communicate():
 def attachment():
     if request.method == 'POST':
         if "attachment" not in request.files:
-            return "No attachment in request: " + json.dumps(request.files)
+            return "No attachment in request: " + json.dumps(request.files) + json.dumps(request.stream)
 
         file = request.files["attachment"]
         file.filename = secure_filename(file.filename)
