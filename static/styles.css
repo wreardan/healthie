@@ -141,6 +141,8 @@ h1 {
 
 .call-button {
   color: green;
+  border:none;
+  background-color: inherit;
 }
 
 .call-button i {
