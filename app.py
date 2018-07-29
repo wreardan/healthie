@@ -172,23 +172,15 @@ def attachment():
 
         file = request.files["attachment"]
         file.filename = secure_filename(file.filename)
-        output = upload_file_to_s3(file, S3_BUCKET, 'private')
-        if output == 'success':
+        url = upload_file_to_s3(file, S3_BUCKET, 'private')
 
-            upload_date = time.strftime('%Y-%m-%d %H:%M:%S')
-            uploaded_by = "San Francisco General"
-            user_id = session['user_id']
-            cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id) VALUES('%s', '%s', '%s', %d);" % 
-                (file.filename, upload_date, uploaded_by, user_id))
-            attachmend_id = cur.lastrowid
-            return attachment_id
-        else:
-            return 'upload_failure'
-
-
-@app.route("/attachment/<attachment_id>", methods = ['GET'])
-def attachment_by_id(attachment_id):
-    pass
+        upload_date = time.strftime('%Y-%m-%d %H:%M:%S')
+        uploaded_by = "San Francisco General"
+        user_id = session['user_id']
+        cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d);" % 
+            (file.filename, upload_date, uploaded_by, user_id, url))
+        attachmend_id = cur.lastrowid
+        return attachment_id
 
 
 #from werkzeug.security import secure_filename
@@ -210,7 +202,15 @@ def upload_file_to_s3(file, bucket_name, acl="public-read"):
                 "ContentType": file.content_type
             }
         )
-        return 'success'
+
+        url = s3.generate_presigned_url(
+            ClientMethod='get_object',
+            Params={
+                'Bucket': bucket_name,
+                'Key': file.filename
+            }
+        )
+        return url
 
     except Exception as e:
         # This is a catch all exception, edit this part to fit your needs.
