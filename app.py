@@ -158,8 +158,8 @@ def googleredirect():
 
 @app.route('/communicate', methods = ['GET', 'POST'])
 def communicate():
-    if not 'user_id' in session or not (int(session['user_id']) > 0):
-        return redirect('/login')
+    # if not 'user_id' in session or not (int(session['user_id']) > 0):
+    #     return redirect('/login')
     return render_template('communicate.html')
 
 
