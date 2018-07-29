@@ -30,9 +30,8 @@ def register():
 		city = request.form.get('city')
 		state = request.form.get('state')
 		zipcode = request.form.get('zipcode')
-
-		# Hook up Trulioo here
-
+		validate(name, email, phone, address, city, state, zipcode)
+		# Hook up Trulioo her
 		# Insert patient into database
 
 		return redirect('/records')
@@ -77,6 +76,7 @@ if __name__ == "__main__":
     # https://stackoverflow.com/questions/26080872/secret-key-not-set-in-flask-session
     #app.secret_key = 'Yarwarl'
     app.config['SESSION_TYPE'] = 'filesystem'
-
     app.run(host= '0.0.0.0')
+
+
 
