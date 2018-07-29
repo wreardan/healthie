@@ -144,6 +144,12 @@ def fitbitredirect():
     return ""
 
 
+@app.route('/googleredirect', methods = ['GET', 'POST'])
+def googleredirect():
+    print("received google redirect")
+    return ""
+
+
 
 @app.route('/communicate', methods = ['GET', 'POST'])
 def communicate():
