@@ -63,6 +63,14 @@ h1 {
     opacity: 0.5;
 }
 
+.nav-logo {
+  position: absolute;
+}
+.nav-logo img {
+  width: 50px;
+  height: 50px;
+}
+
 .app {
     top: 0;
     bottom: 0;
