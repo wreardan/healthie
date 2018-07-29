@@ -18,7 +18,7 @@ if 'DB_PASSWORD' in os.environ:
     con = mdb.connect("localhost","root",db_password,"healthie")
 
 
-    S3_BUCKET = 'healthie.us'  # app.config["S3_BUCKET"]
+    S3_BUCKET = 'healthie.us2'  # app.config["S3_BUCKET"]
     s3 = boto3.client('s3', aws_access_key_id=os.environ["AWS_KEY"], aws_secret_access_key=os.environ["AWS_SECRET"])
 
 app = Flask(__name__)
