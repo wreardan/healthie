@@ -186,7 +186,7 @@ function leave() {
 
   var list = document.querySelectorAll("#video div");
   for(var i = 0; i < list.length; i++) {
-  	list.style.display = 'none';
+  	list[i].style.display = 'none';
   }
 
   localStream.close();
