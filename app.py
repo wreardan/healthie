@@ -71,7 +71,7 @@ def login():
         password_hash = hash_password(password)
         with con:
             cur = con.cursor()
-            cur.execute("SELECT * FROM User WHERE email=''")
+            cur.execute("SELECT * FROM User WHERE email='%s'" % username)
             rows = cur.fetchall()
             user = rows[0]
             db_password_hash = user['password_hash']
