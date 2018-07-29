@@ -47,7 +47,7 @@ def register():
         with con:
             
             cur = con.cursor()
-            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode) VALUES(%s, %s, %s, %s, %d, %s, %s, %s, %d)" % 
+            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d);" % 
                 (firstname, lastname, email, password_hash, phone, address, city, state, zipcode))
 
         return redirect('/records')
