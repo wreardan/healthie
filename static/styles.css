@@ -170,7 +170,7 @@ Register file and Login file CSS
 }
 
 
-.LoginForm div input {
+.LoginForm div input{
   padding: 6px !important;
   display: inline-block;
   border-top:none;
@@ -261,12 +261,4 @@ input::placeholder {
 
   input[name=register]:hover,input[name=login]:hover {
     opacity:1;
-  }
-
-  textarea {
-    color: var(--sand);
-  }
-  .ui-container{
-      margin: 10px;
-      padding: 10px;
   }
