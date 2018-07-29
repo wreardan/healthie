@@ -162,7 +162,8 @@ def communicate():
 
 if __name__ == "__main__":
     # https://stackoverflow.com/questions/26080872/secret-key-not-set-in-flask-session
-    app.secret_key = os.environ['SESSION_SECRET']
+    if 'SESSION_SECRET' in os.environ:
+        app.secret_key = os.environ['SESSION_SECRET']
     app.config['SESSION_TYPE'] = 'filesystem'
 
     app.run(host= '0.0.0.0')
