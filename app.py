@@ -6,7 +6,12 @@ from datetime import datetime
 import json
 import hashlib
 from flask import Response, stream_with_context, redirect, flash, render_template, session, abort
-#import boto3, botocore
+import boto3, botocore
+import MySQLdb as mdb
+import os
+
+db_password = os.environ['DB_PASSWORD']
+con = mdb.connect("localhost","root",db_password,"healthie")
 
 app = Flask(__name__)
 app.debug = True
@@ -22,7 +27,8 @@ def home(path):
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        name = request.form.get('name')
+        firstname = request.form.get('firstname')
+        lastname = request.form.get('lastname')
         email = request.form.get('email')
         phone = request.form.get('phone')
         address = request.form.get('address')
@@ -33,6 +39,11 @@ def register():
         # Hook up Trulioo here
 
         # Insert patient into database
+        with con:
+            
+            cur = con.cursor()
+            cur.execute("INSERT INTO User(firstname, lastname, email, phone, address, city, state, zipcode) VALUES(%s, %s, %s, %d, %s, %s, %s, %d)" % 
+                (firstname, lastname, email, phone, address, city, state, zipcode))
 
         return redirect('/records')
 
@@ -91,6 +102,13 @@ def schedule():
 @app.route('/fitbit', methods = ['GET', 'POST'])
 def fitbit():
     return render_template('fitbit.html')
+
+
+
+@app.route('/fitbitredirect', methods = ['GET', 'POST'])
+def fitbitredirect():
+    return ""
+
 
 
 @app.route('/communicate', methods = ['GET', 'POST'])
