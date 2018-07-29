@@ -174,13 +174,16 @@ def attachment():
         file.filename = secure_filename(file.filename)
         url = upload_file_to_s3(file, S3_BUCKET, 'private')
 
-        upload_date = time.strftime('%Y-%m-%d %H:%M:%S')
-        uploaded_by = "San Francisco General"
-        user_id = session['user_id']
-        cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d);" % 
-            (file.filename, upload_date, uploaded_by, user_id, url))
-        attachmend_id = cur.lastrowid
-        return attachment_id
+        with con:
+            
+            cur = con.cursor()
+            upload_date = time.strftime('%Y-%m-%d %H:%M:%S')
+            uploaded_by = "San Francisco General"
+            user_id = session['user_id']
+            cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d);" % 
+                (file.filename, upload_date, uploaded_by, user_id, url))
+            attachmend_id = cur.lastrowid
+            return attachment_id
 
 
 #from werkzeug.security import secure_filename
