@@ -184,6 +184,8 @@ function leave() {
     console.log("Leave channel failed");
   });
 
+  $("#video div").css("display", "none");
+
   localStream.close();
   localStream.stop();
 }
