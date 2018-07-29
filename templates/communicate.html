@@ -183,6 +183,9 @@ function leave() {
   }, function (err) {
     console.log("Leave channel failed");
   });
+
+  localStream.close();
+  localStream.stop();
 }
 
 function publish() {
