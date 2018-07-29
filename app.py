@@ -1,12 +1,14 @@
 from flask import Flask
 from flask import request
 import flask
+import requests
 import time
 from datetime import datetime
 import json
 import hashlib
 from flask import Response, stream_with_context, redirect, flash, render_template, session, abort
 import boto3, botocore
+
 import os
 import time
 
@@ -131,8 +133,8 @@ def records():
 
 @app.route('/schedule', methods = ['GET', 'POST'])
 def schedule():
-    if not 'user_id' in session or not (int(session['user_id']) > 0):
-        return redirect('/login')
+    # if not 'user_id' in session or not (int(session['user_id']) > 0):
+    #     return redirect('/login')
     return render_template('schedule.html')
 
 
@@ -158,8 +160,8 @@ def googleredirect():
 
 @app.route('/communicate', methods = ['GET', 'POST'])
 def communicate():
-    # if not 'user_id' in session or not (int(session['user_id']) > 0):
-    #     return redirect('/login')
+    if not 'user_id' in session or not (int(session['user_id']) > 0):
+        return redirect('/login')
     return render_template('communicate.html')
 
 
@@ -228,6 +230,7 @@ if __name__ == "__main__":
         app.secret_key = os.environ['SESSION_SECRET']
         kwargs = {"ssl_context": ('../cert.pem', '../privkey.pem')}
     app.config['SESSION_TYPE'] = 'filesystem'
-
     app.run(host= '0.0.0.0', **kwargs)
+
+
 
