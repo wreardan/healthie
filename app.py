@@ -7,7 +7,13 @@ from datetime import datetime
 import json
 import hashlib
 from flask import Response, stream_with_context, redirect, flash, render_template, session, abort
-#import boto3, botocore
+import boto3, botocore
+import MySQLdb as mdb
+import os
+import time
+
+db_password = os.environ['DB_PASSWORD']
+con = mdb.connect("localhost","root",db_password,"healthie")
 
 app = Flask(__name__)
 app.debug = True
@@ -24,31 +30,49 @@ def home(path):
 def register():
 
     if request.method == 'POST':
-        name = request.form.get('name')
+        firstname = request.form.get('firstname')
+        lastname = request.form.get('lastname')
         email = request.form.get('email')
-        phone = request.form.get('phone')
+        phone = int(request.form.get('phone'))
         address = request.form.get('address')
         city = request.form.get('city')
         state = request.form.get('state')
-        zipcode = request.form.get('zipcode')
+        zipcode = int(request.form.get('zipcode'))
+        password = request.form.get('password')
+        password2 = request.form.get('password2')
+
+        assert(password == password2)
+        password_hash = hash_password(password)
 
         # Hook up Trulioo here
 
         # Insert patient into database
+        with con:
+            
+            cur = con.cursor()
+            reg_date = time.strftime('%Y-%m-%d %H:%M:%S')
+            cur.execute("INSERT INTO User(firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date) VALUES('%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', %d, '%s');" % 
+                (firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date))
 
         return redirect('/records')
 
     else:
         return render_template('register.html')
 
+def hash_password(password):
+    return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        password_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        user_id = db.get('Username:' + username)
+        password_hash = hash_password(password)
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT * FROM User WHERE email=''")
+            rows = cur.fetchall()
+            db_password_hash = rows[0]['password_hash']
 
         if user_id == '' or user_id is None:
             return render_template('login.html')
@@ -93,6 +117,13 @@ def schedule():
 @app.route('/fitbit', methods = ['GET', 'POST'])
 def fitbit():
     return render_template('fitbit.html')
+
+
+
+@app.route('/fitbitredirect', methods = ['GET', 'POST'])
+def fitbitredirect():
+    return ""
+
 
 
 @app.route('/communicate', methods = ['GET', 'POST'])
