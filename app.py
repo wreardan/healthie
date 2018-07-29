@@ -17,6 +17,10 @@ if 'DB_PASSWORD' in os.environ:
     db_password = os.environ['DB_PASSWORD']
     con = mdb.connect("localhost","root",db_password,"healthie")
 
+
+    S3_BUCKET = 'healthie.us'  # app.config["S3_BUCKET"]
+    s3 = boto3.client('s3', aws_access_key_id=os.environ["AWS_KEY"], aws_secret_access_key=os.environ["AWS_SECRET"])
+
 app = Flask(__name__)
 app.debug = True
 
@@ -56,7 +60,7 @@ def register():
                 (firstname, lastname, email, password_hash, phone, address, city, state, zipcode, reg_date))
 
             user_id = cur.lastrowid
-            session['user_id'] = uesr_id
+            session['user_id'] = user_id
 
         return redirect('/records')
 
@@ -156,18 +160,74 @@ def googleredirect():
 
 @app.route('/communicate', methods = ['GET', 'POST'])
 def communicate():
-    if not 'user_id' in session or not (int(session['user_id']) > 0):
-        return redirect('/login')
+    # if not 'user_id' in session or not (int(session['user_id']) > 0):
+    #     return redirect('/login')
     return render_template('communicate.html')
 
+
+# http://zabana.me/notes/upload-files-amazon-s3-flask.html
+@app.route("/attachment", methods = ['POST'])
+def attachment():
+    if request.method == 'POST':
+        if "attachment" not in request.files:
+            return "No attachment in request: " + json.dumps(request.files)
+
+        file = request.files["attachment"]
+        file.filename = secure_filename(file.filename)
+        url = upload_file_to_s3(file, S3_BUCKET, 'private')
+
+        upload_date = time.strftime('%Y-%m-%d %H:%M:%S')
+        uploaded_by = "San Francisco General"
+        user_id = session['user_id']
+        cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d);" % 
+            (file.filename, upload_date, uploaded_by, user_id, url))
+        attachmend_id = cur.lastrowid
+        return attachment_id
+
+
+#from werkzeug.security import secure_filename
+# HACK HACK HACK
+def secure_filename(filename):
+    return filename
+
+# http://zabana.me/notes/upload-files-amazon-s3-flask.html
+# https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
+# http://boto3.readthedocs.io/en/latest/guide/s3.html
+def upload_file_to_s3(file, bucket_name, acl="public-read"):
+    try:
+        s3.upload_fileobj(
+            file,
+            bucket_name,
+            file.filename,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+            }
+        )
+
+        url = s3.generate_presigned_url(
+            ClientMethod='get_object',
+            Params={
+                'Bucket': bucket_name,
+                'Key': file.filename
+            }
+        )
+        return url
+
+    except Exception as e:
+        # This is a catch all exception, edit this part to fit your needs.
+        print("Exception during S3 upload: ", e)
+        return e
 
 
 if __name__ == "__main__":
     # https://stackoverflow.com/questions/26080872/secret-key-not-set-in-flask-session
+    kwargs = {}
     if 'SESSION_SECRET' in os.environ:
         app.secret_key = os.environ['SESSION_SECRET']
+        kwargs = {"ssl_context": ('../cert.pem', '../privkey.pem')}
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run(host= '0.0.0.0')
+    app.run(host= '0.0.0.0', **kwargs)
 
 
 
