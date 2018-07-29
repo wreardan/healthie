@@ -182,10 +182,10 @@ def attachment():
             upload_date = time.strftime('%Y-%m-%d %H:%M:%S')
             uploaded_by = "San Francisco General"
             user_id = session['user_id']
-            cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d);" % 
+            cur.execute("INSERT INTO Record(filename, upload_date, uploaded_by, user_id, url) VALUES('%s', '%s', '%s', %d, '%s');" % 
                 (file.filename, upload_date, uploaded_by, user_id, url))
-            attachmend_id = cur.lastrowid
-            return attachment_id
+            attachment_id = cur.lastrowid
+            return url
 
 
 #from werkzeug.security import secure_filename
