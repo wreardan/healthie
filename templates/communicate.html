@@ -15,8 +15,8 @@
 Key: <input id="key" type="text" value="" size="36"></input>
 Channel: <input id="channel" type="text" value="1000" size="4"></input>
 Host: <input id="video" type="checkbox" checked></input>
-<button id="join" class="btn btn-primary" onclick="join()">Join</button>
-<button id="leave" class="btn btn-primary" onclick="leave()">Leave</button>
+<button id="join" class="btn btn-primary" onclick="join()">Call!</button>
+<button id="leave" class="btn btn-primary" onclick="leave()">End Call</button>
 <button id="publish" class="btn btn-primary" onclick="publish()">Publish</button>
 <button id="unpublish" class="btn btn-primary" onclick="unpublish()">Unpublish</button>
 </div>
@@ -66,6 +66,12 @@ var audioSelect = document.querySelector('select#audioSource');
 var videoSelect = document.querySelector('select#videoSource');
 
 function join() {
+   document.getElementById("publish").disabled = true;
+  document.getElementById("unpublish").disabled = false;
+  client.publish(localStream, function (err) {
+    console.log("Publish local stream error: " + err);
+  });
+
   document.getElementById("join").disabled = true;
   document.getElementById("video").disabled = true;
   var channel_key = null;
@@ -168,6 +174,12 @@ function join() {
 }
 
 function leave() {
+ document.getElementById("publish").disabled = false;
+  document.getElementById("unpublish").disabled = true;
+  client.unpublish(localStream, function (err) {
+    console.log("Unpublish local stream failed" + err);
+  });
+
   document.getElementById("leave").disabled = true;
   client.leave(function () {
     console.log("Leavel channel successfully");
@@ -177,19 +189,11 @@ function leave() {
 }
 
 function publish() {
-  document.getElementById("publish").disabled = true;
-  document.getElementById("unpublish").disabled = false;
-  client.publish(localStream, function (err) {
-    console.log("Publish local stream error: " + err);
-  });
+ 
 }
 
 function unpublish() {
-  document.getElementById("publish").disabled = false;
-  document.getElementById("unpublish").disabled = true;
-  client.unpublish(localStream, function (err) {
-    console.log("Unpublish local stream failed" + err);
-  });
+  
 }
 
 function getDevices() {
