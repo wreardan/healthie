@@ -111,7 +111,7 @@ def logout():
 def records():
     if not 'user_id' in session or not (int(session['user_id']) > 0):
         return redirect('/login')
-    record_list = [
+    """record_list = [
         {
             "filename": "Chest X-Ray",
             "date": "4/17/17",
@@ -127,7 +127,11 @@ def records():
             "date": "4/19/17",
             "author": "Fairview Health Services",
         },
-    ]
+    ]"""
+    with con:
+        cur = con.cursor(mdb.cursors.DictCursor)
+        cur.execute("SELECT * FROM Record WHERE user_id='%d'" % session["user_id"])
+        record_list = cur.fetchall()
     return render_template('records.html', record_list=record_list)
 
 
