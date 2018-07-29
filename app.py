@@ -70,7 +70,7 @@ def login():
         password = request.form.get('password')
         password_hash = hash_password(password)
         with con:
-            cur = con.cursor()
+            cur = con.cursor(mdb.cursors.DictCursor)
             cur.execute("SELECT * FROM User WHERE email='%s'" % username)
             rows = cur.fetchall()
             if len(rows) == 0
